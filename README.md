@@ -15,34 +15,17 @@ In computing hexadecimal (also base16, or hex) is a positional numeral system wi
 
 It uses sixteen distinct symbols the symbols 0–9 to represent values zero to nine, and a-f to represent values ten to fifteen.
 
-    
-| Decimal | Hex |
-|-------|-----|
-| 0 | 0 |
-| 1 | 1 |
-| 2 | 2 |
-| 3 | 3 |
-| 4 | 4 |
-| 5 | 5 |
-| 6 | 6 |
-| 7 | 7 |
-| 8 | 8 |
-| 9 | 9 |
-| 10 | a |
-| 11 | b |
-| 12 | c |
-| 13 | d |
-| 14 | e |
-| 15 | f |
-
+| Decimal | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 |
+|---------|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|
+| Hex     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | a  | b  | c  | d  | e  | f  |
 
 Each hex digit represents exactly 4 bits of data.
 
        387922‬ Decimal
      = 01011110101101010010   =  0101    1110    1011    0101   0010  Binary
                               =  5       14      11      5      2     Decimal
-                              =  5       e       b       5	    2     Hexidecimal
-                              =  5eb52 Hexidecimal
+                              =  5       e       b       5	    2     Hex
+                              =  5eb52 Hexadecimal
 
 
 ## Base64 (*[More info](https://en.wikipedia.org/wiki/Base64)*)
