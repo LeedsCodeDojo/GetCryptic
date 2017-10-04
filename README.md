@@ -124,9 +124,11 @@ In this we perform the comparison of two bits, being 1 if the two bits are diffe
     XOR 1010 (decimal 10)
       = 1100 (decimal 12)
 
-### Arithmetic shift (*[More info](https://en.wikipedia.org/wiki/Bitwise_operation#Arithmetic_shift)*)
+### Logical shift (*[More info](https://en.wikipedia.org/wiki/Logical_shift )*)
 
-In an arithmetic shift, the bits that are shifted out of either end are discarded. In a left arithmetic shift, zeros are shifted in on the right; in a right arithmetic shift, the sign bit is shifted in on the left.
+The bit shifts are sometimes considered bitwise operations, because they treat a value as a series of bits rather than as a numerical quantity. In these operations the digits are moved, or shifted, to the left or right
+
+In a logical shift, zeros are shifted in to replace the discarded bits.
 
 This example uses an 8-bit register:
 
