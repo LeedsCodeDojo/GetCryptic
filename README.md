@@ -1,6 +1,6 @@
 # GetCryptic
 
-Work through these exercises: [Cryptopals Set 1](http://cryptopals.com/sets/1)
+Work through these exercises from Cryptopals Set 1 (**[http://cryptopals.com/sets/1](http://cryptopals.com/sets/1)**)
 Get as far as you can.
 
 Try to TDD the solution if able.
@@ -11,7 +11,7 @@ You should write the code to parse hexidecimal and base64 as well instead of usi
 
 # Helpful information
 
-## Hex *[More info](https://en.wikipedia.org/wiki/Hexadecimal)*
+## Hex (*[More info](https://en.wikipedia.org/wiki/Hexadecimal)*)
 
 In computing hexadecimal (also base 16, or hex) is a positional numeral system with a base of 16. 
 
@@ -33,7 +33,7 @@ Each hex digit represents exactly 4 bits of data.
                               =  5EB52 Hexidecimal
 
 
-## Base64 *[More info](https://en.wikipedia.org/wiki/Base64)*
+## Base64 (*[More info](https://en.wikipedia.org/wiki/Base64)*)
 
 In computing base64 is a positional numeral system with a base of 64.
 
@@ -84,20 +84,20 @@ Each base64 digit represents exactly 6 bits of data.
     Base64-encoded  T            W            E            =
                  =  TWE=
 
-## ASCII [More info](http://www.rapidtables.com/code/text/ascii-table.htm)
+## ASCII (*[More info](http://www.rapidtables.com/code/text/ascii-table.htm)*)
 
 See [More info] to learn about ASCII
 
 ## [Bitwise Operations](https://en.wikipedia.org/wiki/Bitwise_operation)
 
-### NOT [More info](https://en.wikipedia.org/wiki/Bitwise_operation#NOT)
+### NOT (*[More info](https://en.wikipedia.org/wiki/Bitwise_operation#NOT)*)
 
 The **bitwise NOT**, or **complement**, is a unary operation that performs logical negation on each bit, forming the ones' complement of the given binary value. Bits that are 0 become 1, and those that are 1 become 0. For example:
 
     NOT 0111  (decimal 7)
       = 1000  (decimal 8)
 
-### AND [More info](https://en.wikipedia.org/wiki/Bitwise_operation#AND)
+### (AND *[More info](https://en.wikipedia.org/wiki/Bitwise_operation#AND)*)
 
 A bitwise AND takes two equal-length binary representations and performs the logical AND operation on each pair of the corresponding bits, by multiplying them. 
 
@@ -107,7 +107,7 @@ Thus, if both bits in the compared position are 1, the bit in the resulting bina
     AND 0011 (decimal 3)
       = 0001 (decimal 1)
 
-### OR [More info](https://en.wikipedia.org/wiki/Bitwise_operation#OR)
+### (OR *[More info](https://en.wikipedia.org/wiki/Bitwise_operation#OR)*)
 
 A bitwise OR takes two bit patterns of equal length and performs the logical inclusive OR operation on each pair of corresponding bits. 
 
@@ -117,7 +117,7 @@ The result in each position is 0 if both bits are 0, while otherwise the result 
     OR 0011 (decimal 3)
      = 0111 (decimal 7)
 
-### XOR [More info](https://en.wikipedia.org/wiki/Bitwise_operation#XOR)
+### (XOR *[More info](https://en.wikipedia.org/wiki/Bitwise_operation#XOR)*)
 
 A bitwise XOR takes two bit patterns of equal length and performs the logical exclusive OR operation on each pair of corresponding bits. The result in each position is 1 if only the first bit is 1 or only the second bit is 1, but will be 0 if both are 0 or both are 1. 
 
@@ -127,7 +127,7 @@ In this we perform the comparison of two bits, being 1 if the two bits are diffe
     XOR 1010 (decimal 10)
       = 1100 (decimal 12)
 
-### Arithmetic shift [More info](https://en.wikipedia.org/wiki/Bitwise_operation#Arithmetic_shift)
+### Arithmetic shift (*[More info](https://en.wikipedia.org/wiki/Bitwise_operation#Arithmetic_shift)*)
 
 In an arithmetic shift, the bits that are shifted out of either end are discarded. In a left arithmetic shift, zeros are shifted in on the right; in a right arithmetic shift, the sign bit is shifted in on the left.
 
