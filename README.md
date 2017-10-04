@@ -13,15 +13,30 @@ You should write the code to parse hexidecimal and base64 as well instead of usi
 
 ## Hex (*[More info](https://en.wikipedia.org/wiki/Hexadecimal)*)
 
-In computing hexadecimal (also base 16, or hex) is a positional numeral system with a base of 16. 
+In computing hexadecimal (also Base16, or hex) is a positional numeral system with a base of 16. 
 
-It uses sixteen distinct symbols the symbols 0–9 to represent values zero to nine, and A, B, C, D, E, F (or alternatively a, b, c, d, e, f) to represent values ten to fifteen.
+It uses sixteen distinct symbols the symbols 0–9 to represent values zero to nine, and a, b, c, d, e, f to represent values ten to fifteen.
 
     
-| Value |    Hex     |
-|-------|------------|
-| 0-9   | A-Z or a-z |
-| A-F   | 10-15      |
+| Value | Hex |
+|-------|-----|
+| 0 | 0 |
+| 1 | 1 |
+| 2 | 2 |
+| 3 | 3 |
+| 4 | 4 |
+| 5 | 5 |
+| 6 | 6 |
+| 7 | 7 |
+| 8 | 8 |
+| 9 | 9 |
+| 10 | a |
+| 11 | b |
+| 12 | c |
+| 13 | d |
+| 14 | e |
+| 15 | f |
+
 
 Each hex digit represents exactly 4 bits of data.
 
@@ -38,9 +53,7 @@ In computing base64 is a positional numeral system with a base of 64.
 
 It uses sixty four distinct symbols the symbols A–Z to represent values 0-25, a-z to represent values 26-51, 0-9 to represent 52-61, + to represent 62 and / to represent 63.
 
-The final '==' sequence indicates that the last group contained only one byte, and '=' indicates that it contained two bytes. 
-
-|  Value  | Hex |
+|  Value  | Character |
 |---------|-----|
 | 0-25    | A–Z |
 | 26-51   | a-z |
@@ -49,7 +62,9 @@ The final '==' sequence indicates that the last group contained only one byte, a
 | 63      | /   |
 | Padding | =   |
 
-Each base64 digit represents exactly 6 bits of data.
+Each Base64 digit represents exactly 6 bits of data.  Because everything else works in multiples of 8 bits, that means you usually have to work with groups of Base64 characters, e.g. three 8-bit ASCII characters can be converted into four 6-bit Base64 characters.
+
+When there are less than 24 bits to work with, the '=' character is used to indicate no value. 
 
     Text            Man
     ASCII           M                a                n
@@ -100,9 +115,17 @@ A bitwise AND takes two equal-length binary representations and performs the log
 
 Thus, if both bits in the compared position are 1, the bit in the resulting binary representation is 1 (1 × 1 = 1); otherwise, the result is 0 (1 × 0 = 0 and 0 × 0 = 0). For example:
 
-        0101 (decimal 5)
-    AND 0011 (decimal 3)
-      = 0001 (decimal 1)
+        0101 
+    AND 0011 
+      = 0001 
+
+#### Bit Mask
+
+Bitwise AND can be used to mask a binary value, e.g. only get a part of it.  For example if you have a 32-bit integer and only want the last six bits, you can AND it with the value 63 to get them:
+
+        10101001011010100101011010100101 
+    AND 00000000000000000000000000111111 (decimal 63)
+      = 00000000000000000000000000100101
 
 ### OR (*[More info](https://en.wikipedia.org/wiki/Bitwise_operation#OR)*)
 
@@ -110,9 +133,9 @@ A bitwise OR takes two bit patterns of equal length and performs the logical inc
 
 The result in each position is 0 if both bits are 0, while otherwise the result is 1. For example:
 
-       0101 (decimal 5)
-    OR 0011 (decimal 3)
-     = 0111 (decimal 7)
+       0101 
+    OR 0011 
+     = 0111 
 
 ### XOR (*[More info](https://en.wikipedia.org/wiki/Bitwise_operation#XOR)*)
 
@@ -120,9 +143,9 @@ A bitwise XOR takes two bit patterns of equal length and performs the logical ex
 
 In this we perform the comparison of two bits, being 1 if the two bits are different, and 0 if they are the same. For example:
 
-        0110 (decimal 6)
-    XOR 1010 (decimal 10)
-      = 1100 (decimal 12)
+        0110 
+    XOR 1010 
+      = 1100 
 
 ### Logical shift (*[More info](https://en.wikipedia.org/wiki/Logical_shift )*)
 
