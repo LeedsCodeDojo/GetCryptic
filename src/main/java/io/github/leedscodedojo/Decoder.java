@@ -13,9 +13,7 @@ public class Decoder {
                 .mapToObj(i -> (byte) i)
                 .collect(Collectors.toList());
 
-        Long maxScore = -1L;
-        byte bestKey = Byte.MIN_VALUE;
-        String bestDecoded = "";
+        DecodedResult bestResult = null;
 
         for (byte key = Byte.MIN_VALUE; key < Byte.MAX_VALUE; key++) {
             Byte[] keyBytes = new Byte[cipherText.size()];
@@ -33,13 +31,11 @@ public class Decoder {
                     .map(Object::toString)
                     .collect(Collectors.joining());
 
-            if (score > maxScore) {
-                maxScore = score;
-                bestKey = key;
-                bestDecoded = decodedText;
+            if (bestResult == null || bestResult.score < score) {
+                bestResult = new DecodedResult(score, decodedText, key);
             }
         }
 
-        return new DecodedResult(maxScore, bestDecoded, bestKey);
+        return bestResult;
     }
 }
