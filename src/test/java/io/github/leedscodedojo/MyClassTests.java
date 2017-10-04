@@ -2,6 +2,8 @@ package io.github.leedscodedojo;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -101,5 +103,15 @@ public class MyClassTests {
     @Test
     public void lookupBase64Test5() {
         assertThat(new Base64Encoder().lookupBase64(63), is('/'));
+    }
+
+    @Test
+    public void fixedXOr(){
+        List<Byte> sourceBytes = new Base64Encoder().hexDecode("1c0111001f010100061a024b53535009181c");
+        List<Byte> key = new Base64Encoder().hexDecode("686974207468652062756c6c277320657965");
+        List<Byte> expected = new Base64Encoder().hexDecode("746865206b696420646f6e277420706c6179");
+
+         List<Byte> actual =  new Xor().execute(sourceBytes, key);
+         assertThat(actual, is(expected));
     }
 }
