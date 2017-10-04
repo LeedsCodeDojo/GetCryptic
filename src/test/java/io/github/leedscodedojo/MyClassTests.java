@@ -1,8 +1,13 @@
 package io.github.leedscodedojo;
 
+import com.sun.java.swing.plaf.windows.WindowsTreeUI;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Dictionary;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -113,5 +118,53 @@ public class MyClassTests {
 
          List<Byte> actual =  new Xor().execute(sourceBytes, key);
          assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void decode(){
+        List<Byte> cipherText = new Base64Encoder().hexDecode("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736");
+
+        //Cooking MC's like a pound of bacon
+        List<Byte> commonCharacters = Arrays.asList(new Byte[]{'a', 'e', 'i', 'o', 'r', 's'});
+
+        Long maxScore = -1L;
+        byte bestKey = Byte.MIN_VALUE;
+        String bestDecoded = "";
+
+        for(byte key = Byte.MIN_VALUE ; key < Byte.MAX_VALUE; key ++){
+            Byte[] keyBytes = new Byte[cipherText.size()];
+            Arrays.fill(keyBytes, key);
+
+            List<Byte> decoded = new Xor().execute(cipherText, Arrays.asList(keyBytes));
+
+            long score = decoded
+                    .stream()
+                    .filter(decodedChar -> commonCharacters.contains(decodedChar))
+                    .count();
+
+
+            String decodedText = decoded.stream()
+                    .map(b -> Character.valueOf((char) (int) b))
+                    .map(c -> c.toString())
+                    .collect(Collectors.joining());
+
+            System.out.println(score);
+            System.out.println(key);
+            System.out.println(decodedText);
+
+            if (score > maxScore){
+                maxScore = score;
+                bestKey = key;
+                bestDecoded = decodedText;
+            }
+        }
+
+        System.out.println("And the winner is...");
+        System.out.println(bestKey);
+        System.out.println(bestDecoded);
+
+
+        //88
+        //Cooking MC's like a pound of bacon
     }
 }
