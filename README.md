@@ -132,11 +132,11 @@ In a logical shift, zeros are shifted in to replace the discarded bits.
 
 This example uses an 8-bit register:
 
-       00010111 (decimal +23) LEFT-SHIFT
-    =  00101110 (decimal +46)
+       00010111 LEFT-SHIFT
+    =  00101110 
     
-       10010111 (decimal −105) RIGHT-SHIFT
-    =  11001011 (decimal −53)
+       10010111 RIGHT-SHIFT
+    =  01001011
     
-       00010111 (decimal +23) LEFT-SHIFT-BY-TWO
-    =  01011100 (decimal +92)
+       00010111 LEFT-SHIFT-BY-TWO
+    =  01011100 
