@@ -1,4 +1,4 @@
-# GetCryptic
+# Get Cryptic
 
 Work through these exercises from Cryptopals Set 1 (**[http://cryptopals.com/sets/1](http://cryptopals.com/sets/1)**)
 Get as far as you can.
@@ -7,7 +7,7 @@ Try to TDD the solution if able.
 
 ***Optional but recommended***
 
-You should write the code to parse hexidecimal and base64 as well instead of using built in functions, its more fun than it sounds.
+You should write the code to parse hexidecimal and base64 as well instead of using built in functions, it's more fun than it sounds.
 
 # Helpful information
 
