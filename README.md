@@ -17,12 +17,11 @@ In computing hexadecimal (also base 16, or hex) is a positional numeral system w
 
 It uses sixteen distinct symbols the symbols 0–9 to represent values zero to nine, and A, B, C, D, E, F (or alternatively a, b, c, d, e, f) to represent values ten to fifteen.
 
-    +-------+------------+
-    | Value |    Hex     |
-    +-------+------------+
-    | 0-9   | A-Z or a-z |
-    | A-F   | 10-15      |
-    +-------+------------+
+    
+| Value |    Hex     |
+|-------|------------|
+| 0-9   | A-Z or a-z |
+| A-F   | 10-15      |
 
 Each hex digit represents exactly 4 bits of data.
 
@@ -41,16 +40,14 @@ It uses sixty four distinct symbols the symbols A–Z to represent values 0-25, 
 
 The final '==' sequence indicates that the last group contained only one byte, and '=' indicates that it contained two bytes. 
 
-    +---------+-----+
-    |  Value  | Hex |
-    +---------+-----+
-    | 0-25    | A–Z |
-    | 26-51   | a-z |
-    | 52-61   | 0-9 |
-    | 62      | +   |
-    | 63      | /   |
-    | Padding | =   |
-    +---------+-----+
+|  Value  | Hex |
+|---------|-----|
+| 0-25    | A–Z |
+| 26-51   | a-z |
+| 52-61   | 0-9 |
+| 62      | +   |
+| 63      | /   |
+| Padding | =   |
 
 Each base64 digit represents exactly 6 bits of data.
 
@@ -97,7 +94,7 @@ The **bitwise NOT**, or **complement**, is a unary operation that performs logic
     NOT 0111  (decimal 7)
       = 1000  (decimal 8)
 
-### (AND *[More info](https://en.wikipedia.org/wiki/Bitwise_operation#AND)*)
+### AND (*[More info](https://en.wikipedia.org/wiki/Bitwise_operation#AND)*)
 
 A bitwise AND takes two equal-length binary representations and performs the logical AND operation on each pair of the corresponding bits, by multiplying them. 
 
@@ -107,7 +104,7 @@ Thus, if both bits in the compared position are 1, the bit in the resulting bina
     AND 0011 (decimal 3)
       = 0001 (decimal 1)
 
-### (OR *[More info](https://en.wikipedia.org/wiki/Bitwise_operation#OR)*)
+### OR (*[More info](https://en.wikipedia.org/wiki/Bitwise_operation#OR)*)
 
 A bitwise OR takes two bit patterns of equal length and performs the logical inclusive OR operation on each pair of corresponding bits. 
 
@@ -117,7 +114,7 @@ The result in each position is 0 if both bits are 0, while otherwise the result 
     OR 0011 (decimal 3)
      = 0111 (decimal 7)
 
-### (XOR *[More info](https://en.wikipedia.org/wiki/Bitwise_operation#XOR)*)
+### XOR (*[More info](https://en.wikipedia.org/wiki/Bitwise_operation#XOR)*)
 
 A bitwise XOR takes two bit patterns of equal length and performs the logical exclusive OR operation on each pair of corresponding bits. The result in each position is 1 if only the first bit is 1 or only the second bit is 1, but will be 0 if both are 0 or both are 1. 
 
