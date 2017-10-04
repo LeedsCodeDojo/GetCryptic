@@ -1,14 +1,14 @@
 package io.github.leedscodedojo;
 
-import com.sun.java.swing.plaf.windows.WindowsTreeUI;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Dictionary;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
+import static io.github.leedscodedojo.Decoder.decodeCipherText;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -66,7 +66,7 @@ public class MyClassTests {
         char char1 = '0';
         char char2 = '0';
 
-        assertThat(new Base64Encoder().charsToByte(char1, char2), is((byte)0));
+        assertThat(new Base64Encoder().charsToByte(char1, char2), is((byte) 0));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class MyClassTests {
         char char1 = '1';
         char char2 = '1';
 
-        assertThat(new Base64Encoder().charsToByte(char1, char2), is((byte)17));
+        assertThat(new Base64Encoder().charsToByte(char1, char2), is((byte) 17));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class MyClassTests {
         char char1 = 'a';
         char char2 = '1';
 
-        assertThat(new Base64Encoder().charsToByte(char1, char2), is((byte)161));
+        assertThat(new Base64Encoder().charsToByte(char1, char2), is((byte) 161));
     }
 
     @Test
@@ -111,132 +111,40 @@ public class MyClassTests {
     }
 
     @Test
-    public void fixedXOr(){
+    public void fixedXOr() {
         List<Byte> sourceBytes = new Base64Encoder().hexDecode("1c0111001f010100061a024b53535009181c");
         List<Byte> key = new Base64Encoder().hexDecode("686974207468652062756c6c277320657965");
         List<Byte> expected = new Base64Encoder().hexDecode("746865206b696420646f6e277420706c6179");
 
-         List<Byte> actual =  new Xor().execute(sourceBytes, key);
-         assertThat(actual, is(expected));
+        List<Byte> actual = new Xor().execute(sourceBytes, key);
+        assertThat(actual, is(expected));
     }
 
     @Test
-    public void decode(){
-        List<Byte> cipherText = new Base64Encoder().hexDecode("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736");
+    public void decode() {
+         DecodedResult decodedResullt = decodeCipherText("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736");
 
-        //Cooking MC's like a pound of bacon
-        List<Byte> commonCharacters = Arrays.asList(new Byte[]{'a', 'e', 'i', 'o', 'r', 's'});
-
-        Long maxScore = -1L;
-        byte bestKey = Byte.MIN_VALUE;
-        String bestDecoded = "";
-
-        for(byte key = Byte.MIN_VALUE ; key < Byte.MAX_VALUE; key ++){
-            Byte[] keyBytes = new Byte[cipherText.size()];
-            Arrays.fill(keyBytes, key);
-
-            List<Byte> decoded = new Xor().execute(cipherText, Arrays.asList(keyBytes));
-
-            long score = decoded
-                    .stream()
-                    .filter(decodedChar -> commonCharacters.contains(decodedChar))
-                    .count();
-
-
-            String decodedText = decoded.stream()
-                    .map(b -> Character.valueOf((char) (int) b))
-                    .map(c -> c.toString())
-                    .collect(Collectors.joining());
-
-//            System.out.println(score);
-//            System.out.println(key);
-//            System.out.println(decodedText);
-
-            if (score > maxScore){
-                maxScore = score;
-                bestKey = key;
-                bestDecoded = decodedText;
-            }
-        }
-
-        System.out.println("And the winner is...");
-        System.out.println(bestKey);
-        System.out.println(bestDecoded);
-
-
-        //88
-        //Cooking MC's like a pound of bacon
+        System.out.println(decodedResullt.toString());
+        assertThat(decodedResullt.decodedText, containsString("Cooking MC's like a pound of bacon"));
     }
 
     @Test
     public void test5() {
         String[] inputLines = input.split("\n");
 
-        List<Byte> commonCharacters = Arrays.asList(new Byte[]{'a', 'e', 'i', 'l', 'm', 'n', 'o', 'r', 's', 't', 'u'});
-        List<Byte> uncommonCharacter = Arrays.asList(new Byte[]{'_', '{', ':', '[', ']', '\\', '#', ',', '+', '}', '^', '.', '%', '(', ')', '~', '@', '!',
-        '"', '\'', ';', '/'});
+        Optional<DecodedResult> result = Arrays.stream(inputLines)
+                .map(Decoder::decodeCipherText)
+                .max(Comparator.comparingLong(o -> o.score));
 
-        Long maxScore = 0L;
-        String bestDecoded = "";
+        assertThat(result.isPresent(), is(true));
 
-        for (int i = 0; i < inputLines.length; i++) {
-            String inputLine = inputLines[i];
+        // Now that the party is jumping
+        System.out.println(result.get().toString());
 
-            List<Byte> cipherText = new Base64Encoder().hexDecode(inputLine);
-
-            for (byte key = Byte.MIN_VALUE; key < Byte.MAX_VALUE; key++) {
-                Byte[] keyBytes = new Byte[cipherText.size()];
-                Arrays.fill(keyBytes, key);
-
-                List<Byte> decoded = new Xor().execute(cipherText, Arrays.asList(keyBytes));
-
-                long score = decoded
-                        .stream()
-                        .filter(decodedChar -> commonCharacters.contains(Character.toLowerCase(decodedChar)))
-                        .count();
-                long badChars = decoded
-                        .stream()
-                        .filter(decodedChar -> uncommonCharacter.contains(decodedChar))
-                        .count();
-                long spaces = decoded
-                        .stream()
-                        .filter(decodedChar -> decodedChar.equals(' '))
-                        .count();
-
-//                score -= badChars + spaces * 10;
-                //score += spaces ;
-
-                //boolean containsIllegalCharacter = decoded.stream().anyMatch(b -> (b < 0x20));
-
-                String decodedText = decoded.stream()
-                        .map(b -> Character.valueOf((char) (int) b))
-                        .map(c -> c.toString())
-                        .collect(Collectors.joining());
-
-                            System.out.println(score);
-                            System.out.println(key);
-                            System.out.println(decodedText);
-
-                if (score > maxScore) {
-
-//                    if (score > maxScore
-//                            && !containsIllegalCharacter) {
-
-                    System.out.println(score);
-                    System.out.println(key);
-                    System.out.println(decodedText);
-                    maxScore = score;
-                    bestDecoded = decodedText;
-                }
-            }
-        }
-
-        System.out.println("And the winner is...");
-        System.out.println(bestDecoded);
-        System.out.println(maxScore);
+        assertThat(result.get().decodedText, containsString("Now that the party is jumping"));
     }
 
-    String input = "0e3647e8592d35514a081243582536ed3de6734059001e3f535ce6271032\n" +
+    private final String input = "0e3647e8592d35514a081243582536ed3de6734059001e3f535ce6271032\n" +
             "334b041de124f73c18011a50e608097ac308ecee501337ec3e100854201d\n" +
             "40e127f51c10031d0133590b1e490f3514e05a54143d08222c2a4071e351\n" +
             "45440b171d5c1b21342e021c3a0eee7373215c4024f0eb733cf006e2040c\n" +
