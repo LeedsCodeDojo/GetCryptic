@@ -23,16 +23,54 @@ public class Base64Encoder {
             sourceToBytes.add(charsToByte(char1, char2));
         }
 
+        StringBuilder result = new StringBuilder();
+
         for (int i=0; i<sourceToBytes.size(); i+=3) {
+            if (sourceToBytes.size() - i < 3) {
+                switch (sourceToBytes.size() - i) {
+                    case 1:
+                        int bits24a = (sourceToBytes.get(i) << 16);
+
+                        byte byteOut1a = (byte)((bits24a >> 18) & 0x3f);
+                        byte byteOut2a = (byte)((bits24a >> 12) & 0x3f);
+
+                        result.append(lookupBase64(byteOut1a));
+                        result.append(lookupBase64(byteOut2a));
+                        result.append('=');
+                        result.append('=');
+                        break;
+                    case 2:
+                        int bits24b = (sourceToBytes.get(i) << 16) | (sourceToBytes.get(i+1) << 8);
+
+                        byte byteOut1b = (byte)((bits24b >> 18) & 0x3f);
+                        byte byteOut2b = (byte)((bits24b >> 12) & 0x3f);
+                        byte byteOut3b = (byte)((bits24b >> 6) & 0x3f);
+
+                        result.append(lookupBase64(byteOut1b));
+                        result.append(lookupBase64(byteOut2b));
+                        result.append(lookupBase64(byteOut3b));
+                        result.append('=');
+                        break;
+                    default:
+                        throw new IllegalStateException("What?");
+                }
+                break;
+            }
+
             int bits24 = (sourceToBytes.get(i) << 16) | (sourceToBytes.get(i+1) << 8) | sourceToBytes.get(i+2);
 
             byte byteOut1 = (byte)((bits24 >> 18) & 0x3f);
             byte byteOut2 = (byte)((bits24 >> 12) & 0x3f);
             byte byteOut3 = (byte)((bits24 >> 6) & 0x3f);
             byte byteOut4 = (byte)(bits24 & 0x3f);
+
+            result.append(lookupBase64(byteOut1));
+            result.append(lookupBase64(byteOut2));
+            result.append(lookupBase64(byteOut3));
+            result.append(lookupBase64(byteOut4));
         }
 
-        return "";
+        return result.toString();
     }
 
     public byte charsToByte(char c1, char c2) {

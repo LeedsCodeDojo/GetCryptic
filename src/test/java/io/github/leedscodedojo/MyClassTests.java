@@ -19,9 +19,33 @@ public class MyClassTests {
     }
 
     @Test
-    public void testEncodeOneCharacter() {
+    public void testEncodeThreeBytes() {
         String source = "49276d";
         String expected = "SSdt";
+
+        Base64Encoder encoder = new Base64Encoder();
+
+        String result = encoder.encode(source);
+
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void testEncodeWithPadding() {
+        String source = "4927";
+        String expected = "SSc=";
+
+        Base64Encoder encoder = new Base64Encoder();
+
+        String result = encoder.encode(source);
+
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void testEncodeWithPaddings() {
+        String source = "49";
+        String expected = "SQ==";
 
         Base64Encoder encoder = new Base64Encoder();
 
