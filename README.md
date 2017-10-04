@@ -1,9 +1,7 @@
 # Get Cryptic
 
-Work through these exercises from Cryptopals Set 1 (**[http://cryptopals.com/sets/1](http://cryptopals.com/sets/1)**)
+Work through these exercises from Cryptopals Set 1 (**[http://cryptopals.com/sets/1](http://cryptopals.com/sets/1)**).  
 Get as far as you can.
-
-Try to TDD the solution if able.
 
 ***Optional but recommended***
 
@@ -13,12 +11,12 @@ You should write the code to parse hexidecimal and base64 as well instead of usi
 
 ## Hex (*[More info](https://en.wikipedia.org/wiki/Hexadecimal)*)
 
-In computing hexadecimal (also Base16, or hex) is a positional numeral system with a base of 16. 
+In computing hexadecimal (also base16, or hex) is a positional numeral system with a base of 16. 
 
-It uses sixteen distinct symbols the symbols 0–9 to represent values zero to nine, and a, b, c, d, e, f to represent values ten to fifteen.
+It uses sixteen distinct symbols the symbols 0–9 to represent values zero to nine, and a-f to represent values ten to fifteen.
 
     
-| Value | Hex |
+| Decimal | Hex |
 |-------|-----|
 | 0 | 0 |
 | 1 | 1 |
@@ -43,8 +41,8 @@ Each hex digit represents exactly 4 bits of data.
        387922‬ Decimal
      = 01011110101101010010   =  0101    1110    1011    0101   0010  Binary
                               =  5       14      11      5      2     Decimal
-                              =  5       E       B       5	    2     Hexidecimal
-                              =  5EB52 Hexidecimal
+                              =  5       e       b       5	    2     Hexidecimal
+                              =  5eb52 Hexidecimal
 
 
 ## Base64 (*[More info](https://en.wikipedia.org/wiki/Base64)*)
@@ -53,7 +51,7 @@ In computing base64 is a positional numeral system with a base of 64.
 
 It uses sixty four distinct symbols the symbols A–Z to represent values 0-25, a-z to represent values 26-51, 0-9 to represent 52-61, + to represent 62 and / to represent 63.
 
-|  Value  | Character |
+|  Value  | Base64 Character |
 |---------|-----|
 | 0-25    | A–Z |
 | 26-51   | a-z |
@@ -62,9 +60,9 @@ It uses sixty four distinct symbols the symbols A–Z to represent values 0-25, 
 | 63      | /   |
 | Padding | =   |
 
-Each Base64 digit represents exactly 6 bits of data.  Because everything else works in multiples of 8 bits, that means you usually have to work with groups of Base64 characters, e.g. three 8-bit ASCII characters can be converted into four 6-bit Base64 characters.
+Each base64 digit represents exactly 6 bits of data.  Because everything else works in multiples of 8 bits, that means you usually have to work with groups of base64 characters, e.g. three 8-bit ASCII characters can be converted into four 6-bit base64 characters.
 
-When there are less than 24 bits to work with, the '=' character is used to indicate no value. 
+When there are less than 24 bits to work with, the '=' character is used to pad it out to four characters. 
 
     Text            Man
     ASCII           M                a                n
@@ -106,8 +104,8 @@ See [More info] to learn about ASCII
 
 The **bitwise NOT**, or **complement**, is a unary operation that performs logical negation on each bit, forming the ones' complement of the given binary value. Bits that are 0 become 1, and those that are 1 become 0. For example:
 
-    NOT 0111  (decimal 7)
-      = 1000  (decimal 8)
+    NOT 0111 
+      = 1000 
 
 ### AND (*[More info](https://en.wikipedia.org/wiki/Bitwise_operation#AND)*)
 
