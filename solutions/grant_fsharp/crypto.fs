@@ -88,6 +88,44 @@ let hexDigitToNyble = function
     | 'f' -> 15
     | x -> failwith (sprintf "Invalid Hex Character: '%c'" x)
 
+let nybleToHexDigit = function
+    | 0 -> '0'
+    | 1 -> '1'
+    | 2 -> '2'
+    | 3 -> '3'
+    | 4 -> '4'
+    | 5 -> '5'
+    | 6 -> '6'
+    | 7 -> '7'
+    | 8 -> '8'
+    | 9 -> '9'
+    | 10 -> 'a'
+    | 11 -> 'b'
+    | 12 -> 'c'
+    | 13 -> 'd'
+    | 14 -> 'e'
+    | 15 -> 'f'
+    | x -> failwith (sprintf "Invalid Nyble: %d" x)
+
+let hexToNybles (hex:string) =
+    hex 
+    |> Seq.toList
+    |> List.map hexDigitToNyble
+
+let nyblesToHex nybles =
+    nybles
+    |> List.map nybleToHexDigit
+    |> Array.ofList
+    |> String
+
+let xorAgainstCharacter nyble nybles = 
+    nybles 
+    |> List.map (fun n -> n ^^^ nyble)
+
+let xorList nybles1 nybles2 =
+    List.zip nybles1 nybles2
+    |> List.map (fun (n1, n2) -> n1 ^^^ n2)
+
 let fillMissingNyblesWithZeroes = function
     | [n1;n2] -> [n1;n2;0]
     | [n1] -> [n1;0;0]
@@ -102,8 +140,7 @@ let threeNyblesToTwoSixBitNumbers (threeNybles: int) =
 
 let hexToBase64 (hex:string) =
     hex 
-    |> Seq.toList
-    |> List.map hexDigitToNyble
+    |> hexToNybles
     |> List.chunkBySize 3
     |> List.map fillMissingNyblesWithZeroes
     |> List.map concatenateNybles
@@ -112,3 +149,12 @@ let hexToBase64 (hex:string) =
     |> List.map sixBitNumberToBase64Character
     |> List.toArray
     |> String
+
+let findXorCypher (hex:string) =
+
+    let encryptedNybles = hex |> hexToNybles
+
+    //[0..63]
+    //|> List.map (fun cypher -> encryptedNybles |> xor cypher)
+
+    'a'
