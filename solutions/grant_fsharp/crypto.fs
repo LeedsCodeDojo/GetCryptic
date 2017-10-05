@@ -107,16 +107,28 @@ let nybleToHexDigit = function
     | 15 -> 'f'
     | x -> failwith (sprintf "Invalid Nyble: %d" x)
 
-let hexToNybles (hex:string) =
+let byteToHexDigits byte =
+    [byte >>> 4 |> nybleToHexDigit;
+    byte &&& 15 |> nybleToHexDigit]
+
+let nyblesToBytes (nybles:int list) =
+    //printfn "Nyble 1: %d, Nyble 2: %d" nybles.[0] nybles.[1]
+    let byte = (nybles.[0] <<< 4) ||| nybles.[1]
+    //printfn "%d" byte
+    byte
+
+let hexToBytes (hex:string) =
     hex 
     |> Seq.toList
     |> List.map hexDigitToNyble
+    |> List.chunkBySize 2
+    |> List.map nyblesToBytes
 
-let nyblesToHex nybles =
-    nybles
-    |> List.map nybleToHexDigit
-    |> Array.ofList
-    |> String
+let bytesToHex bytes =
+    bytes
+    |> List.map byteToHexDigits
+    |> List.concat
+    |> String.Concat
 
 let xorAgainstCharacter nyble nybles = 
     nybles 
@@ -126,33 +138,23 @@ let xorList nybles1 nybles2 =
     List.zip nybles1 nybles2
     |> List.map (fun (n1, n2) -> n1 ^^^ n2)
 
-let fillMissingNyblesWithZeroes = function
-    | [n1;n2] -> [n1;n2;0]
-    | [n1] -> [n1;0;0]
-    | threeFullNybles -> threeFullNybles
-
-let concatenateNybles (nybles: int list) =
-     (nybles.[0] <<< 8) + (nybles.[1] <<< 4) + nybles.[2]
-
-let threeNyblesToTwoSixBitNumbers (threeNybles: int) =
+let threeBytesToFourSixBitNumbers (bytes: int list) =
+    let concatenatedBytes = (bytes.[0] <<< 16) + (bytes.[1] <<< 8) + bytes.[2]
     let SIX_BIT_MASK = 63 // 00111111
-    [ (threeNybles >>> 6) &&& SIX_BIT_MASK; threeNybles &&& SIX_BIT_MASK]
+    [18;12;6;0] |> List.map( fun rightShift -> (concatenatedBytes >>> rightShift) &&& SIX_BIT_MASK)
 
 let hexToBase64 (hex:string) =
     hex 
-    |> hexToNybles
+    |> hexToBytes
     |> List.chunkBySize 3
-    |> List.map fillMissingNyblesWithZeroes
-    |> List.map concatenateNybles
-    |> List.map threeNyblesToTwoSixBitNumbers
+    |> List.map threeBytesToFourSixBitNumbers
     |> List.concat
     |> List.map sixBitNumberToBase64Character
-    |> List.toArray
-    |> String
+    |> String.Concat
 
 let findXorCypher (hex:string) =
 
-    let encryptedNybles = hex |> hexToNybles
+    //let encryptedNybles = hex |> hexToNybles
 
     //[0..63]
     //|> List.map (fun cypher -> encryptedNybles |> xor cypher)

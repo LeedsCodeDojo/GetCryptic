@@ -13,11 +13,11 @@ let ``Hex to Base 64`` () =
 
 [<Fact>]
 let ``Fixed XOR`` () =
-   ("1c0111001f010100061a024b53535009181c" |> hexToNybles) |> xorList ("686974207468652062756c6c277320657965" |> hexToNybles)
-   |> nyblesToHex
+   ("1c0111001f010100061a024b53535009181c" |> hexToBytes) |> xorList ("686974207468652062756c6c277320657965" |> hexToBytes)
+   |> bytesToHex
    |> should equal "746865206b696420646f6e277420706c6179"
 
-[<Fact>]
-let ``Single character XOR cypher`` () =
-   let cyper = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736" |> findXorCypher
-   ("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736" |> hexToNybles) |> xorAgainstCharacter (int cyper) |> should equal ""
+// [<Fact>]
+// let ``Single character XOR cypher`` () =
+//    let cyper = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736" |> findXorCypher
+//    ("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736" |> hexToNybles) |> xorAgainstCharacter (int cyper) |> should equal ""
